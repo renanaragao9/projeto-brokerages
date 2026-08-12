@@ -4,12 +4,14 @@ namespace App\Providers;
 
 use App\Models\Broker;
 use App\Models\Construction;
+use App\Models\Feature;
 use App\Models\Permission;
 use App\Models\Program;
 use App\Models\Role;
 use App\Models\User;
 use App\Policies\BrokerPolicy;
 use App\Policies\ConstructionPolicy;
+use App\Policies\FeaturePolicy;
 use App\Policies\PermissionPolicy;
 use App\Policies\ProgramPolicy;
 use App\Policies\RolePolicy;
@@ -26,6 +28,7 @@ class AppServiceProvider extends AuthServiceProvider
     protected $policies = [
         Broker::class => BrokerPolicy::class,
         Construction::class => ConstructionPolicy::class,
+        Feature::class => FeaturePolicy::class,
         Permission::class => PermissionPolicy::class,
         Program::class => ProgramPolicy::class,
         Role::class => RolePolicy::class,

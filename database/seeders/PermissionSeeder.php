@@ -51,6 +51,13 @@ class PermissionSeeder extends Seeder
             ['name' => 'Editar Programas', 'code' => 'program.edit', 'group' => 'Programas'],
             ['name' => 'Atualizar Programas', 'code' => 'program.update', 'group' => 'Programas'],
             ['name' => 'Deletar Programas', 'code' => 'program.delete', 'group' => 'Programas'],
+
+            // Features
+            ['name' => 'Ver Características', 'code' => 'feature.view', 'group' => 'Características'],
+            ['name' => 'Criar Características', 'code' => 'feature.create', 'group' => 'Características'],
+            ['name' => 'Editar Características', 'code' => 'feature.edit', 'group' => 'Características'],
+            ['name' => 'Atualizar Características', 'code' => 'feature.update', 'group' => 'Características'],
+            ['name' => 'Deletar Características', 'code' => 'feature.delete', 'group' => 'Características'],
         ];
 
         foreach ($permissions as $permission) {
