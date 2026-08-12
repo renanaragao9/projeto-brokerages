@@ -5,6 +5,7 @@ namespace Tests\Unit\Models;
 use App\Models\Company;
 use App\Models\Permission;
 use App\Models\Role;
+use Illuminate\Database\QueryException;
 use Illuminate\Foundation\Testing\RefreshDatabase;
 use Tests\TestCase;
 
@@ -134,7 +135,7 @@ class RoleTest extends TestCase
             'company_id' => $otherCompany->id,
         ]);
 
-        $this->expectException(\Illuminate\Database\QueryException::class);
+        $this->expectException(QueryException::class);
 
         Role::create(['name' => 'Admin', 'company_id' => $this->company->id]);
     }

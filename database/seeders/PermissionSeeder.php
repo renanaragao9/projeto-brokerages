@@ -30,6 +30,13 @@ class PermissionSeeder extends Seeder
             ['name' => 'Editar Perfis', 'code' => 'role.edit', 'group' => 'Perfis'],
             ['name' => 'Atualizar Perfis', 'code' => 'role.update', 'group' => 'Perfis'],
             ['name' => 'Deletar Perfis', 'code' => 'role.delete', 'group' => 'Perfis'],
+
+            // Constructions
+            ['name' => 'Ver Construtoras', 'code' => 'construction.view', 'group' => 'Construtoras'],
+            ['name' => 'Criar Construtoras', 'code' => 'construction.create', 'group' => 'Construtoras'],
+            ['name' => 'Editar Construtoras', 'code' => 'construction.edit', 'group' => 'Construtoras'],
+            ['name' => 'Atualizar Construtoras', 'code' => 'construction.update', 'group' => 'Construtoras'],
+            ['name' => 'Deletar Construtoras', 'code' => 'construction.delete', 'group' => 'Construtoras'],
         ];
 
         foreach ($permissions as $permission) {

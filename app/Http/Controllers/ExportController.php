@@ -2,6 +2,7 @@
 
 namespace App\Http\Controllers;
 
+use App\Filament\Reports\Construction\ConstructionReport;
 use App\Filament\Reports\Permission\PermissionReport;
 use App\Filament\Reports\Role\RoleReport;
 use App\Filament\Reports\User\UserReport;
@@ -17,6 +18,7 @@ class ExportController extends BaseController
         $user = $request->user();
 
         $report = match ($resourcePath) {
+            'constructions' => new ConstructionReport,
             'users' => new UserReport,
             'roles' => new RoleReport,
             'permissions' => new PermissionReport,
