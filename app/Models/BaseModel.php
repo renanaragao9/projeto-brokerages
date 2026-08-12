@@ -1,0 +1,41 @@
+<?php
+
+namespace App\Models;
+
+use Illuminate\Database\Eloquent\Factories\HasFactory;
+use Illuminate\Database\Eloquent\Model;
+use Illuminate\Database\Eloquent\SoftDeletes;
+use Illuminate\Support\Str;
+use Spatie\Activitylog\Models\Concerns\LogsActivity;
+use Spatie\Activitylog\Support\LogOptions;
+
+class BaseModel extends Model
+{
+    use HasFactory;
+    use LogsActivity;
+    use SoftDeletes;
+
+    public function getActivitylogOptions(): LogOptions
+    {
+        return LogOptions::defaults()->logFillable();
+    }
+
+    protected static function boot(): void
+    {
+        parent::boot();
+
+        static::preventLazyLoading(! app()->isProduction());
+
+        static::handleLazyLoadingViolationUsing(function ($model, $relation) {
+            $message = "Lazy load [{$relation}] on model [".get_class($model).'].';
+            info($message);
+            throw new \Exception($message);
+        });
+
+        static::creating(function (self $model): void {
+            if (in_array('uuid', $model->getFillable()) && empty($model->uuid)) {
+                $model->uuid = Str::uuid();
+            }
+        });
+    }
+}

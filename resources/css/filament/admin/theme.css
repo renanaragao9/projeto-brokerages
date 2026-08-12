@@ -1,0 +1,25 @@
+@import '../../../../vendor/filament/filament/resources/css/theme.css';
+
+@source '../../../../app/Filament/**/*';
+@source '../../../../resources/views/filament/**/*';
+
+.fi-global-search-result .fi-global-search-result-link {
+    border-inline-start: 3px solid var(--primary-500);
+}
+
+.fi-global-search-result:nth-child(odd) .fi-global-search-result-link {
+    border-inline-start-color: var(--primary-600);
+}
+
+.fi-header-heading {
+    border-inline-start: 6px solid var(--primary-500);
+    padding-inline-start: 0.75rem;
+    border-radius: 8px 0 0 8px;
+}
+
+.fi-in-entry-label {
+    border-inline-start: 3px solid var(--primary-400);
+    padding-inline-start: 0.5rem;
+    border-radius: 3px 0 0 3px;
+}
+
