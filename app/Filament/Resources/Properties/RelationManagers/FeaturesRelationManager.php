@@ -49,10 +49,10 @@ class FeaturesRelationManager extends RelationManager
                 TextColumn::make('created_at')
                     ->label('Adicionada em')
                     ->dateTime('d/m/Y H:i')
-                    ->sortable()
+                    ->sortable(query: fn ($query, string $direction) => $query->orderBy('property_features.created_at', $direction))
                     ->toggleable(isToggledHiddenByDefault: true),
             ])
-            ->defaultSort('id', 'desc')
+            ->defaultSort('features.id', 'desc')
             ->recordActions([
                 EditAction::make()
                     ->form(fn (Schema $schema) => $schema

@@ -48,7 +48,7 @@ class PropertyInfolist
                 Section::make('Informações Financeiras')
                     ->columns(3)
                     ->collapsible()
-                    ->collapsed(true)
+                    ->collapsed(false)
                     ->schema([
                         TextEntry::make('price')
                             ->label('Preço')
@@ -67,7 +67,7 @@ class PropertyInfolist
                 Section::make('Características Físicas')
                     ->columns(3)
                     ->collapsible()
-                    ->collapsed(true)
+                    ->collapsed(false)
                     ->schema([
                         TextEntry::make('area')
                             ->label('Área Privativa (m²)')
@@ -92,7 +92,7 @@ class PropertyInfolist
                 Section::make('Endereço')
                     ->columns(2)
                     ->collapsible()
-                    ->collapsed(true)
+                    ->collapsed(false)
                     ->schema([
                         TextEntry::make('address')
                             ->label('Endereço')
@@ -126,7 +126,7 @@ class PropertyInfolist
                 Section::make('Situação')
                     ->columns(2)
                     ->collapsible()
-                    ->collapsed(true)
+                    ->collapsed(false)
                     ->schema([
                         TextEntry::make('is_featured')
                             ->label('Destaque')

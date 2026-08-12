@@ -37,12 +37,18 @@ class ImagesRelationManager extends RelationManager
                 ImageColumn::make('path')
                     ->label('Prévia')
                     ->disk('public')
-                    ->width(80),
+                    ->width(120)
+                    ->height(80)
+                    ->checkFileExistence(false)
+                    ->alt(fn (PropertyImage $record): string => $record->alt ?? $record->title ?? 'Imagem do imóvel'),
 
                 TextColumn::make('path')
                     ->label('Caminho')
                     ->searchable()
-                    ->limit(40),
+                    ->limit(40)
+                    ->tooltip(fn (PropertyImage $record): string => $record->path)
+                    ->url(fn (PropertyImage $record): string => $record->path)
+                    ->openUrlInNewTab(),
 
                 TextColumn::make('alt')
                     ->label('Alt')
