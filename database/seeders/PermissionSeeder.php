@@ -44,6 +44,13 @@ class PermissionSeeder extends Seeder
             ['name' => 'Editar Corretores', 'code' => 'broker.edit', 'group' => 'Corretores'],
             ['name' => 'Atualizar Corretores', 'code' => 'broker.update', 'group' => 'Corretores'],
             ['name' => 'Deletar Corretores', 'code' => 'broker.delete', 'group' => 'Corretores'],
+
+            // Programs
+            ['name' => 'Ver Programas', 'code' => 'program.view', 'group' => 'Programas'],
+            ['name' => 'Criar Programas', 'code' => 'program.create', 'group' => 'Programas'],
+            ['name' => 'Editar Programas', 'code' => 'program.edit', 'group' => 'Programas'],
+            ['name' => 'Atualizar Programas', 'code' => 'program.update', 'group' => 'Programas'],
+            ['name' => 'Deletar Programas', 'code' => 'program.delete', 'group' => 'Programas'],
         ];
 
         foreach ($permissions as $permission) {
