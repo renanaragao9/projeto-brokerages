@@ -7,6 +7,7 @@ use App\Models\Construction;
 use App\Models\Feature;
 use App\Models\Permission;
 use App\Models\Program;
+use App\Models\Property;
 use App\Models\Role;
 use App\Models\User;
 use App\Policies\BrokerPolicy;
@@ -14,6 +15,7 @@ use App\Policies\ConstructionPolicy;
 use App\Policies\FeaturePolicy;
 use App\Policies\PermissionPolicy;
 use App\Policies\ProgramPolicy;
+use App\Policies\PropertyPolicy;
 use App\Policies\RolePolicy;
 use App\Policies\UserPolicy;
 use Illuminate\Foundation\Support\Providers\AuthServiceProvider;
@@ -31,6 +33,7 @@ class AppServiceProvider extends AuthServiceProvider
         Feature::class => FeaturePolicy::class,
         Permission::class => PermissionPolicy::class,
         Program::class => ProgramPolicy::class,
+        Property::class => PropertyPolicy::class,
         Role::class => RolePolicy::class,
         User::class => UserPolicy::class,
     ];

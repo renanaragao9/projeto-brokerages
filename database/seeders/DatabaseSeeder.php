@@ -16,6 +16,7 @@ class DatabaseSeeder extends Seeder
             BrokersTableSeeder::class,
             ProgramSeeder::class,
             FeatureSeeder::class,
+            PropertiesTableSeeder::class,
         ]);
     }
 }
