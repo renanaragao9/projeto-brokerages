@@ -8,6 +8,7 @@ use App\Filament\Reports\Feature\FeatureReport;
 use App\Filament\Reports\Permission\PermissionReport;
 use App\Filament\Reports\Program\ProgramReport;
 use App\Filament\Reports\Property\PropertyReport;
+use App\Filament\Reports\PropertyBooking\PropertyBookingReport;
 use App\Filament\Reports\Role\RoleReport;
 use App\Filament\Reports\User\UserReport;
 use Illuminate\Http\Request;
@@ -22,6 +23,7 @@ class ExportController extends BaseController
         $user = $request->user();
 
         $report = match ($resourcePath) {
+            'property-bookings' => new PropertyBookingReport,
             'properties' => new PropertyReport,
             'features' => new FeatureReport,
             'programs' => new ProgramReport,

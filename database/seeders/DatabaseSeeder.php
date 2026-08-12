@@ -17,6 +17,7 @@ class DatabaseSeeder extends Seeder
             ProgramSeeder::class,
             FeatureSeeder::class,
             PropertiesTableSeeder::class,
+            PropertyBookingsTableSeeder::class,
         ]);
     }
 }

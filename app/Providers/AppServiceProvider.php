@@ -8,6 +8,7 @@ use App\Models\Feature;
 use App\Models\Permission;
 use App\Models\Program;
 use App\Models\Property;
+use App\Models\PropertyBooking;
 use App\Models\Role;
 use App\Models\User;
 use App\Policies\BrokerPolicy;
@@ -15,6 +16,7 @@ use App\Policies\ConstructionPolicy;
 use App\Policies\FeaturePolicy;
 use App\Policies\PermissionPolicy;
 use App\Policies\ProgramPolicy;
+use App\Policies\PropertyBookingPolicy;
 use App\Policies\PropertyPolicy;
 use App\Policies\RolePolicy;
 use App\Policies\UserPolicy;
@@ -34,6 +36,7 @@ class AppServiceProvider extends AuthServiceProvider
         Permission::class => PermissionPolicy::class,
         Program::class => ProgramPolicy::class,
         Property::class => PropertyPolicy::class,
+        PropertyBooking::class => PropertyBookingPolicy::class,
         Role::class => RolePolicy::class,
         User::class => UserPolicy::class,
     ];

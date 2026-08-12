@@ -65,6 +65,13 @@ class PermissionSeeder extends Seeder
             ['name' => 'Editar Imóveis', 'code' => 'property.edit', 'group' => 'Imóveis'],
             ['name' => 'Atualizar Imóveis', 'code' => 'property.update', 'group' => 'Imóveis'],
             ['name' => 'Deletar Imóveis', 'code' => 'property.delete', 'group' => 'Imóveis'],
+
+            // Property Bookings
+            ['name' => 'Ver Agendamentos', 'code' => 'property_booking.view', 'group' => 'Agendamentos'],
+            ['name' => 'Criar Agendamentos', 'code' => 'property_booking.create', 'group' => 'Agendamentos'],
+            ['name' => 'Editar Agendamentos', 'code' => 'property_booking.edit', 'group' => 'Agendamentos'],
+            ['name' => 'Atualizar Agendamentos', 'code' => 'property_booking.update', 'group' => 'Agendamentos'],
+            ['name' => 'Deletar Agendamentos', 'code' => 'property_booking.delete', 'group' => 'Agendamentos'],
         ];
 
         foreach ($permissions as $permission) {
