@@ -7,6 +7,7 @@ use App\Filament\Resources\Properties\Pages\CreateProperty;
 use App\Filament\Resources\Properties\Pages\EditProperty;
 use App\Filament\Resources\Properties\Pages\ListProperties;
 use App\Filament\Resources\Properties\Pages\ViewProperty;
+use App\Filament\Resources\Properties\RelationManagers\FeaturesRelationManager;
 use App\Filament\Resources\Properties\Schemas\PropertyForm;
 use App\Filament\Resources\Properties\Schemas\PropertyInfolist;
 use App\Filament\Resources\Properties\Tables\PropertiesTable;
@@ -48,6 +49,13 @@ class PropertyResource extends BaseResource
     public static function table(Table $table): Table
     {
         return PropertiesTable::configure($table);
+    }
+
+    public static function getRelations(): array
+    {
+        return [
+            FeaturesRelationManager::class,
+        ];
     }
 
     public static function getPages(): array
