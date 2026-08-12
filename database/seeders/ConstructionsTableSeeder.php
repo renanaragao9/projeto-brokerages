@@ -9,12 +9,17 @@ class ConstructionsTableSeeder extends Seeder
 {
     public function run(): void
     {
-        $constructions = [];
+        $constructions = [
+            [
+                'name' => 'Canopus Construções',
+                'website_url' => 'https://canopusconstrucoes.com.br',
+            ],
+        ];
 
-        foreach ($constructions as $name) {
+        foreach ($constructions as $construction) {
             Construction::updateOrCreate(
-                ['name' => $name],
-                ['is_active' => true],
+                ['name' => $construction['name']],
+                ['website_url' => $construction['website_url'], 'is_active' => true],
             );
         }
     }

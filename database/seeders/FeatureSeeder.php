@@ -23,6 +23,11 @@ class FeatureSeeder extends Seeder
             'Coworking',
             'Sports Court',
             'Garden',
+            'Game Table',
+            'Gazebo',
+            'Soccer Field',
+            'Nap Area',
+            'Kids Play Room',
         ];
 
         foreach ($features as $name) {
