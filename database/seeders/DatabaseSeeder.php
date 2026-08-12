@@ -13,6 +13,7 @@ class DatabaseSeeder extends Seeder
             RoleSeeder::class,
             UserSeeder::class,
             ConstructionsTableSeeder::class,
+            BrokersTableSeeder::class,
             ProgramSeeder::class,
             FeatureSeeder::class,
         ]);

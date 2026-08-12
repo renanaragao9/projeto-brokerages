@@ -13,7 +13,7 @@ class UserSeeder extends Seeder
         $adminRole = Role::where('name', 'Admin')->first();
 
         User::updateOrCreate(
-            ['email' => 'admin@brokerages.com'],
+            ['email' => 'renanaragao159@gmail.com'],
             [
                 'name' => 'Administrador',
                 'password' => bcrypt('12345678'),
