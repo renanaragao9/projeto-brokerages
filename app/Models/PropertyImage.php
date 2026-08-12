@@ -2,10 +2,13 @@
 
 namespace App\Models;
 
+use App\Models\Traits\HasFileUploads;
 use Illuminate\Database\Eloquent\Relations\BelongsTo;
 
 class PropertyImage extends BaseModel
 {
+    use HasFileUploads;
+
     protected $fillable = [
         'property_id',
         'path',
@@ -21,6 +24,16 @@ class PropertyImage extends BaseModel
             'sort_order' => 'integer',
             'is_cover' => 'boolean',
         ];
+    }
+
+    protected function fileUploadDisk(): string
+    {
+        return 'public';
+    }
+
+    protected function fileUploadFields(): array
+    {
+        return ['path'];
     }
 
     public function property(): BelongsTo

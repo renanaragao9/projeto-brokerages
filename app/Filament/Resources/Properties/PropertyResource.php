@@ -8,6 +8,7 @@ use App\Filament\Resources\Properties\Pages\EditProperty;
 use App\Filament\Resources\Properties\Pages\ListProperties;
 use App\Filament\Resources\Properties\Pages\ViewProperty;
 use App\Filament\Resources\Properties\RelationManagers\FeaturesRelationManager;
+use App\Filament\Resources\Properties\RelationManagers\ImagesRelationManager;
 use App\Filament\Resources\Properties\Schemas\PropertyForm;
 use App\Filament\Resources\Properties\Schemas\PropertyInfolist;
 use App\Filament\Resources\Properties\Tables\PropertiesTable;
@@ -55,6 +56,7 @@ class PropertyResource extends BaseResource
     {
         return [
             FeaturesRelationManager::class,
+            ImagesRelationManager::class,
         ];
     }
 
