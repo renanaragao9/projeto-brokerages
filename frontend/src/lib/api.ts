@@ -48,21 +48,60 @@ async function request<T>(path: string, options: RequestInit = {}): Promise<T> {
   return (body as ApiSuccess<T>).data;
 }
 
-export type Program = {
+export type PropertyImage = {
+  id: number;
+  url: string | null;
+  alt: string | null;
+  title: string | null;
+  sort_order: number;
+  is_cover: boolean;
+};
+
+export type PropertyFeature = {
   id: number;
   name: string;
   slug: string;
+  icon: string | null;
+  value: string | null;
+};
+
+export type Property = {
+  id: number;
+  name: string;
+  slug: string;
+  type: string;
+  status: string;
   description: string | null;
-  is_active: boolean;
-  properties_count: number | null;
+  price: string | null;
+  condominium_fee: string | null;
+  iptu: string | null;
+  area: string | null;
+  total_area: string | null;
+  bedrooms: number | null;
+  suites: number | null;
+  bathrooms: number | null;
+  parking_spaces: number | null;
+  address: string | null;
+  address_number: string | null;
+  address_complement: string | null;
+  neighborhood: string | null;
+  city: string | null;
+  state: string | null;
+  zip_code: string | null;
+  latitude: string | null;
+  longitude: string | null;
+  is_featured: boolean;
+  construction: { id: number; name: string } | null;
+  images: PropertyImage[];
+  features: PropertyFeature[];
   created_at: string;
   updated_at: string;
 };
 
-export function getPrograms(): Promise<Program[]> {
-  return request<Program[]>("/programs", { method: "GET" });
+export function getProperties(): Promise<Property[]> {
+  return request<Property[]>("/properties", { method: "GET" });
 }
 
-export function getProgram(id: string | number): Promise<Program> {
-  return request<Program>(`/programs/${id}`, { method: "GET" });
+export function getProperty(id: string | number): Promise<Property> {
+  return request<Property>(`/properties/${id}`, { method: "GET" });
 }
