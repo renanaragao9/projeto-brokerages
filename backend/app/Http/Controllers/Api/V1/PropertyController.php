@@ -8,13 +8,14 @@ use App\Models\Property;
 use App\Services\Property\IndexPropertyService;
 use App\Services\Property\ShowPropertyService;
 use Illuminate\Http\JsonResponse;
+use Illuminate\Http\Request;
 
 class PropertyController extends BaseController
 {
-    public function index(IndexPropertyService $indexPropertyService): JsonResponse
+    public function index(Request $request, IndexPropertyService $indexPropertyService): JsonResponse
     {
         return $this->successResponse(
-            data: PropertyResource::collection($indexPropertyService->run()),
+            data: PropertyResource::collection($indexPropertyService->run($request->query('construction'))),
             message: 'Empreendimentos listados com sucesso.'
         );
     }

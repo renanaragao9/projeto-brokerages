@@ -91,15 +91,18 @@ export type Property = {
   latitude: string | null;
   longitude: string | null;
   is_featured: boolean;
-  construction: { id: number; name: string } | null;
+  /** Só vem no endpoint de detalhe (`/properties/{id}`). */
+  construction?: { id: number; name: string } | null;
   images: PropertyImage[];
-  features: PropertyFeature[];
+  /** Só vem no endpoint de detalhe (`/properties/{id}`). */
+  features?: PropertyFeature[];
   created_at: string;
   updated_at: string;
 };
 
-export function getProperties(): Promise<Property[]> {
-  return request<Property[]>("/properties", { method: "GET" });
+export function getProperties(construction?: string): Promise<Property[]> {
+  const query = construction ? `?construction=${encodeURIComponent(construction)}` : "";
+  return request<Property[]>(`/properties${query}`, { method: "GET" });
 }
 
 export function getProperty(id: string | number): Promise<Property> {

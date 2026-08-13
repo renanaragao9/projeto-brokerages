@@ -1,31 +1,36 @@
 import type { Metadata } from "next";
-import { Geist, Geist_Mono } from "next/font/google";
+import { Poppins } from "next/font/google";
 import "./globals.css";
+import { site } from "@/lib/site";
 
-const geistSans = Geist({
-  variable: "--font-geist-sans",
+const poppins = Poppins({
+  variable: "--font-poppins",
   subsets: ["latin"],
-});
-
-const geistMono = Geist_Mono({
-  variable: "--font-geist-mono",
-  subsets: ["latin"],
+  weight: ["300", "400", "500", "600", "700"],
+  display: "swap",
 });
 
 export const metadata: Metadata = {
-  title: "Empreendimentos | Brokerages",
-  description: "Vitrine pública de empreendimentos da corretora.",
+  title: {
+    default: `${site.name} | Apartamentos e condomínios`,
+    template: `%s | ${site.name}`,
+  },
+  description:
+    "Condomínios residenciais com lazer completo, localização estratégica e as melhores condições de financiamento. Encontre seu apartamento e fale com um corretor.",
+  openGraph: {
+    type: "website",
+    locale: "pt_BR",
+    siteName: site.name,
+    title: `${site.name} | Apartamentos e condomínios`,
+    description:
+      "Condomínios residenciais com lazer completo e as melhores condições de financiamento.",
+  },
 };
 
 export default function RootLayout({ children }: LayoutProps<"/">) {
   return (
-    <html
-      lang="pt-BR"
-      className={`${geistSans.variable} ${geistMono.variable} h-full antialiased`}
-    >
-      <body className="min-h-full flex flex-col bg-slate-50 text-slate-900">
-        {children}
-      </body>
+    <html lang="pt-BR" className={`${poppins.variable} h-full antialiased`}>
+      <body className="flex min-h-full flex-col bg-white text-brand-900">{children}</body>
     </html>
   );
 }

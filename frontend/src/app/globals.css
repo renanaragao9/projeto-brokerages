@@ -1,26 +1,102 @@
 @import "tailwindcss";
 
-:root {
-  --background: #ffffff;
-  --foreground: #171717;
+@theme {
+  --font-sans: var(--font-poppins), ui-sans-serif, system-ui, sans-serif;
+
+  /* Azul institucional Canopus */
+  --color-brand-50: #eef4fa;
+  --color-brand-100: #d7e5f2;
+  --color-brand-200: #aec9e3;
+  --color-brand-300: #7ca6cd;
+  --color-brand-400: #467fb1;
+  --color-brand-500: #0d4273;
+  --color-brand-600: #0b3a66;
+  --color-brand-700: #093054;
+  --color-brand-800: #002041;
+  --color-brand-900: #001830;
+
+  /* Laranja de destaque Canopus */
+  --color-accent-50: #fdf6ef;
+  --color-accent-100: #fae7d3;
+  --color-accent-200: #f2caa1;
+  --color-accent-300: #e8a86c;
+  --color-accent-400: #dd8f46;
+  --color-accent-500: #d0782f;
+  --color-accent-600: #b45e1b;
+  --color-accent-700: #8f4712;
+
+  --animate-ken-burns: ken-burns 22s ease-out forwards;
+  --animate-fade-up: fade-up 0.7s cubic-bezier(0.22, 1, 0.36, 1) forwards;
+  --animate-marquee: marquee 32s linear infinite;
 }
 
-@theme inline {
-  --color-background: var(--background);
-  --color-foreground: var(--foreground);
-  --font-sans: var(--font-geist-sans);
-  --font-mono: var(--font-geist-mono);
-}
-
-@media (prefers-color-scheme: dark) {
-  :root {
-    --background: #0a0a0a;
-    --foreground: #ededed;
+@keyframes ken-burns {
+  from {
+    transform: scale(1.12) translate3d(0, 0, 0);
+  }
+  to {
+    transform: scale(1) translate3d(0, 0, 0);
   }
 }
 
+@keyframes fade-up {
+  from {
+    opacity: 0;
+    transform: translate3d(0, 24px, 0);
+  }
+  to {
+    opacity: 1;
+    transform: translate3d(0, 0, 0);
+  }
+}
+
+@keyframes marquee {
+  from {
+    transform: translate3d(0, 0, 0);
+  }
+  to {
+    transform: translate3d(-50%, 0, 0);
+  }
+}
+
+html {
+  scroll-behavior: smooth;
+}
+
 body {
-  background: var(--background);
-  color: var(--foreground);
-  font-family: Arial, Helvetica, sans-serif;
+  background: #ffffff;
+  color: var(--color-brand-900);
+  font-family: var(--font-sans);
+  -webkit-font-smoothing: antialiased;
+}
+
+::selection {
+  background: var(--color-accent-500);
+  color: #ffffff;
+}
+
+/* Revelação progressiva ao entrar na viewport (ver components/reveal.tsx) */
+[data-reveal] {
+  opacity: 0;
+}
+
+[data-reveal="visible"] {
+  animation: var(--animate-fade-up);
+}
+
+@media (prefers-reduced-motion: reduce) {
+  html {
+    scroll-behavior: auto;
+  }
+
+  [data-reveal],
+  [data-reveal="visible"] {
+    opacity: 1;
+    animation: none !important;
+  }
+
+  .animate-ken-burns,
+  .animate-marquee {
+    animation: none !important;
+  }
 }
