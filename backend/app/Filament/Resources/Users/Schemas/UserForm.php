@@ -55,6 +55,15 @@ class UserForm
                             ->searchable()
                             ->nullable(),
 
+                        Select::make('constructions')
+                            ->label('Empresas')
+                            ->relationship('constructions', 'name')
+                            ->multiple()
+                            ->searchable()
+                            ->preload()
+                            ->helperText('Empresas que este usuário pode ver no painel. Super admin enxerga tudo, independente disso. Sem nenhuma empresa selecionada, o usuário não vê imóveis, corretores, agendamentos ou atualizações de obra.')
+                            ->columnSpanFull(),
+
                         DateTimePicker::make('email_verified_at')
                             ->label('E-mail verificado em'),
 

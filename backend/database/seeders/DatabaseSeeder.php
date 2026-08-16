@@ -14,10 +14,13 @@ class DatabaseSeeder extends Seeder
             UserSeeder::class,
             ConstructionsTableSeeder::class,
             BrokersTableSeeder::class,
+            BanksTableSeeder::class,
             ProgramSeeder::class,
             FeatureSeeder::class,
             PropertiesTableSeeder::class,
+            PropertyFloorPlansTableSeeder::class,
             PropertyBookingsTableSeeder::class,
+            NoticesTableSeeder::class,
         ]);
     }
 }

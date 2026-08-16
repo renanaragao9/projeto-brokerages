@@ -38,6 +38,11 @@ class UserInfolist
                             ->label('Perfil')
                             ->placeholder('-'),
 
+                        TextEntry::make('constructions.name')
+                            ->label('Empresas')
+                            ->badge()
+                            ->placeholder('Nenhuma (sem restrição para super admin, sem acesso para os demais)'),
+
                         TextEntry::make('status')
                             ->label('Status')
                             ->badge()

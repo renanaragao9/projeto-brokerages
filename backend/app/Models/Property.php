@@ -2,12 +2,16 @@
 
 namespace App\Models;
 
+use App\Models\Traits\ScopedToUserConstructions;
 use Illuminate\Database\Eloquent\Relations\BelongsTo;
 use Illuminate\Database\Eloquent\Relations\BelongsToMany;
 use Illuminate\Database\Eloquent\Relations\HasMany;
+use Illuminate\Database\Eloquent\Relations\MorphMany;
 
 class Property extends BaseModel
 {
+    use ScopedToUserConstructions;
+
     public const TYPES = [
         'apartment',
         'house',
@@ -25,6 +29,15 @@ class Property extends BaseModel
         'unavailable',
     ];
 
+    /** Fase física da obra (distinto do `status` comercial). */
+    public const CONSTRUCTION_PHASES = [
+        'planning',
+        'foundation',
+        'structure',
+        'finishing',
+        'completed',
+    ];
+
     protected $fillable = [
         'construction_id',
         'broker_id',
@@ -33,6 +46,7 @@ class Property extends BaseModel
         'slug',
         'type',
         'status',
+        'construction_phase',
         'description',
         'price',
         'condominium_fee',
@@ -55,6 +69,11 @@ class Property extends BaseModel
         'is_featured',
         'is_active',
     ];
+
+    protected static function booted(): void
+    {
+        static::addConstructionScope('construction_id');
+    }
 
     protected function casts(): array
     {
@@ -91,6 +110,11 @@ class Property extends BaseModel
         return $this->hasMany(PropertyImage::class);
     }
 
+    public function floorPlans(): HasMany
+    {
+        return $this->hasMany(PropertyFloorPlan::class);
+    }
+
     public function features(): BelongsToMany
     {
         return $this->belongsToMany(Feature::class, 'property_features')
@@ -98,8 +122,24 @@ class Property extends BaseModel
             ->withTimestamps();
     }
 
+    public function banks(): BelongsToMany
+    {
+        return $this->belongsToMany(Bank::class, 'property_banks')
+            ->withTimestamps();
+    }
+
     public function bookings(): HasMany
     {
         return $this->hasMany(PropertyBooking::class);
+    }
+
+    public function constructionUpdates(): HasMany
+    {
+        return $this->hasMany(ConstructionUpdate::class);
+    }
+
+    public function notices(): MorphMany
+    {
+        return $this->morphMany(Notice::class, 'noticeable');
     }
 }

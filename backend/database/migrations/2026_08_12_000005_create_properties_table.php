@@ -14,6 +14,7 @@ return new class extends Migration
             $table->string('slug')->unique();
             $table->string('type');
             $table->string('status');
+            $table->string('construction_phase')->nullable();
             $table->string('address')->nullable();
             $table->string('address_number')->nullable();
             $table->string('address_complement')->nullable();
@@ -44,6 +45,7 @@ return new class extends Migration
 
             $table->index('type');
             $table->index('status');
+            $table->index('construction_phase');
             $table->index('price');
             $table->index('city');
             $table->index('state');

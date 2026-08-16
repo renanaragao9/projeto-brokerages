@@ -18,12 +18,25 @@ export const STATUS_LABELS: Record<string, string> = {
   reserved: "Reservado",
 };
 
+export const CONSTRUCTION_PHASE_LABELS: Record<string, string> = {
+  planning: "Planejamento",
+  foundation: "Fundação",
+  structure: "Estrutura",
+  finishing: "Acabamento",
+  completed: "Concluído",
+};
+
 export function typeLabel(property: Property): string {
   return TYPE_LABELS[property.type] ?? property.type;
 }
 
 export function statusLabel(property: Property): string {
   return STATUS_LABELS[property.status] ?? property.status;
+}
+
+export function constructionPhaseLabel(property: Property): string | null {
+  if (!property.construction_phase) return null;
+  return CONSTRUCTION_PHASE_LABELS[property.construction_phase] ?? property.construction_phase;
 }
 
 export function formatBRL(value: string | null): string | null {

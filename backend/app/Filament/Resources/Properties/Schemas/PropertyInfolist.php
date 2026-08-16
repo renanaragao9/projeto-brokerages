@@ -28,6 +28,11 @@ class PropertyInfolist
                             ->label('Status')
                             ->badge()
                             ->formatStateUsing(fn (?string $state): string => PropertyForm::STATUS_LABELS[$state] ?? $state ?? '-'),
+                        TextEntry::make('construction_phase')
+                            ->label('Fase da obra')
+                            ->badge()
+                            ->placeholder('-')
+                            ->formatStateUsing(fn (?string $state): string => PropertyForm::CONSTRUCTION_PHASE_LABELS[$state] ?? $state ?? '-'),
                         TextEntry::make('description')
                             ->label('Descrição')
                             ->placeholder('-')

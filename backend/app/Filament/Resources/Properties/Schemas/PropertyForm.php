@@ -28,6 +28,14 @@ class PropertyForm
         'unavailable' => 'Indisponível',
     ];
 
+    public const CONSTRUCTION_PHASE_LABELS = [
+        'planning' => 'Planejamento',
+        'foundation' => 'Fundação',
+        'structure' => 'Estrutura',
+        'finishing' => 'Acabamento',
+        'completed' => 'Concluído',
+    ];
+
     public static function configure(Schema $schema): Schema
     {
         return $schema
@@ -47,8 +55,10 @@ class PropertyForm
                             ->label('Slug')
                             ->required()
                             ->unique(ignoreRecord: true)
-                            ->regex('/^[a-z0-9]+(?:-[a-z0-9]+)*$/')
-                            ->helperText('Usado na URL pública do anúncio.'),
+                            ->live(onBlur: true)
+                            ->dehydrateStateUsing(fn (?string $state) => str($state ?? '')->slug())
+                            ->afterStateUpdated(fn ($state, $set) => $set('slug', str($state ?? '')->slug()))
+                            ->helperText('Usado na URL pública do anúncio. Formatado automaticamente (minúsculas, sem espaço/acento).'),
 
                         Select::make('type')
                             ->label('Tipo')
@@ -60,6 +70,12 @@ class PropertyForm
                             ->options(self::STATUS_LABELS)
                             ->default('available')
                             ->required(),
+
+                        Select::make('construction_phase')
+                            ->label('Fase da obra')
+                            ->options(self::CONSTRUCTION_PHASE_LABELS)
+                            ->default('planning')
+                            ->helperText('Estágio físico da construção, independente do status comercial.'),
 
                         Textarea::make('description')
                             ->label('Descrição')

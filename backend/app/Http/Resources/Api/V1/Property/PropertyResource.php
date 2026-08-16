@@ -4,6 +4,7 @@ namespace App\Http\Resources\Api\V1\Property;
 
 use Illuminate\Http\Request;
 use Illuminate\Http\Resources\Json\JsonResource;
+use Illuminate\Support\Facades\Storage;
 
 class PropertyResource extends JsonResource
 {
@@ -15,6 +16,7 @@ class PropertyResource extends JsonResource
             'slug' => $this->slug,
             'type' => $this->type,
             'status' => $this->status,
+            'construction_phase' => $this->construction_phase,
             'description' => $this->description,
             'price' => $this->price,
             'condominium_fee' => $this->condominium_fee,
@@ -54,8 +56,40 @@ class PropertyResource extends JsonResource
                 'icon' => $feature->icon,
                 'value' => $feature->pivot->value ?? null,
             ])),
+            'banks' => $this->whenLoaded('banks', fn () => $this->banks->map(fn ($bank) => [
+                'id' => $bank->id,
+                'name' => $bank->name,
+                'logo_url' => $bank->image_path ? Storage::disk('public')->url($bank->image_path) : null,
+                'link_simulation' => $bank->link_simulation,
+                'description' => $bank->description,
+                'instructions' => $bank->instructions,
+            ])),
+            'floor_plans' => $this->whenLoaded('floorPlans', fn () => $this->floorPlans->map(fn ($floorPlan) => [
+                'id' => $floorPlan->id,
+                'title' => $floorPlan->title,
+                'image_url' => $floorPlan->image_path ? $this->resolveMediaUrl($floorPlan->image_path) : null,
+                'tour_url' => $floorPlan->tour_url,
+                'sort_order' => $floorPlan->sort_order,
+            ])),
+            'notices' => $this->whenLoaded('notices', fn () => $this->notices->map(fn ($notice) => [
+                'id' => $notice->id,
+                'title' => $notice->title,
+                'slug' => $notice->slug,
+                'excerpt' => $notice->excerpt,
+                'image_url' => $notice->image_path ? $this->resolveMediaUrl($notice->image_path) : null,
+                'published_at' => $notice->published_at,
+            ])),
             'created_at' => $this->created_at,
             'updated_at' => $this->updated_at,
         ];
+    }
+
+    private function resolveMediaUrl(string $path): string
+    {
+        if (str_starts_with($path, 'http://') || str_starts_with($path, 'https://')) {
+            return $path;
+        }
+
+        return Storage::disk('public')->url($path);
     }
 }

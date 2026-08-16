@@ -29,8 +29,10 @@ class ProgramForm
                             ->label('Slug')
                             ->required()
                             ->unique(ignoreRecord: true)
-                            ->regex('/^[a-z0-9]+(?:-[a-z0-9]+)*$/')
-                            ->helperText('Usado na URL pública do anúncio, ex: minha-casa-minha-vida'),
+                            ->live(onBlur: true)
+                            ->dehydrateStateUsing(fn (?string $state) => str($state ?? '')->slug())
+                            ->afterStateUpdated(fn ($state, $set) => $set('slug', str($state ?? '')->slug()))
+                            ->helperText('Usado na URL pública do anúncio, ex: minha-casa-minha-vida. Formatado automaticamente.'),
 
                         Textarea::make('description')
                             ->label('Descrição')

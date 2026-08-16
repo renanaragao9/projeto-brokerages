@@ -8,6 +8,7 @@ use Filament\Models\Contracts\HasAvatar;
 use Filament\Panel;
 use Illuminate\Database\Eloquent\Factories\HasFactory;
 use Illuminate\Database\Eloquent\Relations\BelongsTo;
+use Illuminate\Database\Eloquent\Relations\BelongsToMany;
 use Illuminate\Database\Eloquent\SoftDeletes;
 use Illuminate\Foundation\Auth\User as Authenticatable;
 use Illuminate\Notifications\Notifiable;
@@ -51,6 +52,11 @@ class User extends Authenticatable implements FilamentUser, HasAvatar
     public function role(): BelongsTo
     {
         return $this->belongsTo(Role::class);
+    }
+
+    public function constructions(): BelongsToMany
+    {
+        return $this->belongsToMany(Construction::class)->withTimestamps();
     }
 
     protected function fileUploadFields(): array

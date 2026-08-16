@@ -1,6 +1,15 @@
+import Image from "next/image";
 import Link from "next/link";
 import type { Property } from "@/lib/api";
-import { coverImage, formatArea, formatBRL, shortLocation, statusLabel, typeLabel } from "@/lib/property";
+import {
+  constructionPhaseLabel,
+  coverImage,
+  formatArea,
+  formatBRL,
+  shortLocation,
+  statusLabel,
+  typeLabel,
+} from "@/lib/property";
 import { IconArea, IconArrow, IconBed, IconCar, IconPin, IconShower } from "@/components/icons";
 
 export function PropertyCard({ property }: { property: Property }) {
@@ -8,6 +17,8 @@ export function PropertyCard({ property }: { property: Property }) {
   const location = shortLocation(property);
   const area = formatArea(property.area);
   const price = formatBRL(property.price);
+
+  const phase = constructionPhaseLabel(property);
 
   const specs = [
     area ? { Icon: IconArea, label: area } : null,
@@ -23,13 +34,15 @@ export function PropertyCard({ property }: { property: Property }) {
       href={`/canopus/${property.id}`}
       className="group flex w-full flex-col overflow-hidden rounded-2xl bg-white shadow-[0_2px_20px_-8px_rgba(0,32,65,0.25)] ring-1 ring-brand-900/8 transition duration-300 hover:-translate-y-1 hover:shadow-[0_24px_50px_-20px_rgba(0,32,65,0.45)]"
     >
-      <div className="relative aspect-[4/3] overflow-hidden bg-brand-100">
+      <div className="relative aspect-4/3 overflow-hidden bg-brand-100">
         {cover?.url ? (
-          <img
+          <Image
             src={cover.url}
             alt={cover.alt ?? property.name}
+            fill
             loading="lazy"
-            className="h-full w-full object-cover transition duration-700 group-hover:scale-105"
+            sizes="(min-width: 1024px) 33vw, (min-width: 640px) 50vw, 100vw"
+            className="object-cover transition duration-700 group-hover:scale-105"
           />
         ) : (
           <div className="grid h-full w-full place-items-center text-sm text-brand-400">
@@ -37,7 +50,7 @@ export function PropertyCard({ property }: { property: Property }) {
           </div>
         )}
 
-        <div className="absolute inset-x-0 bottom-0 h-24 bg-gradient-to-t from-brand-900/70 to-transparent" />
+        <div className="absolute inset-x-0 bottom-0 h-24 bg-linear-to-t from-brand-900/70 to-transparent" />
 
         <div className="absolute left-4 top-4 flex flex-wrap gap-2">
           <span className="rounded-full bg-white/95 px-3 py-1 text-[11px] font-semibold uppercase tracking-wide text-brand-700">
@@ -46,6 +59,11 @@ export function PropertyCard({ property }: { property: Property }) {
           <span className="rounded-full bg-accent-500 px-3 py-1 text-[11px] font-semibold uppercase tracking-wide text-white">
             {statusLabel(property)}
           </span>
+          {phase && (
+            <span className="rounded-full bg-brand-700/90 px-3 py-1 text-[11px] font-semibold uppercase tracking-wide text-white">
+              {phase}
+            </span>
+          )}
         </div>
 
         {property.is_featured && (
@@ -93,7 +111,7 @@ export function PropertyCard({ property }: { property: Property }) {
           </div>
 
           <span className="inline-flex items-center gap-1.5 rounded-full bg-brand-50 px-4 py-2 text-sm font-semibold text-brand-600 transition group-hover:bg-accent-500 group-hover:text-white">
-            Saiba +
+            Saiba mais
             <IconArrow className="h-4 w-4 transition group-hover:translate-x-0.5" />
           </span>
         </div>

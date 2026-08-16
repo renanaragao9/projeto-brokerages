@@ -2,11 +2,20 @@
 
 namespace App\Models;
 
+use App\Models\Traits\ScopedToUserConstructions;
 use Illuminate\Database\Eloquent\Relations\BelongsTo;
 use Illuminate\Database\Eloquent\Relations\HasMany;
+use Illuminate\Database\Eloquent\Relations\MorphMany;
 
 class Broker extends BaseModel
 {
+    use ScopedToUserConstructions;
+
+    protected static function booted(): void
+    {
+        static::addConstructionScope('construction_id');
+    }
+
     protected $fillable = [
         'construction_id',
         'name',
@@ -51,5 +60,10 @@ class Broker extends BaseModel
     public function propertyBookings(): HasMany
     {
         return $this->hasMany(PropertyBooking::class);
+    }
+
+    public function notices(): MorphMany
+    {
+        return $this->morphMany(Notice::class, 'noticeable');
     }
 }

@@ -2,6 +2,7 @@
 
 import { useState, type FormEvent } from "react";
 import type { Property } from "@/lib/api";
+import { formatPhoneBR } from "@/lib/phone";
 import { site, whatsappLink } from "@/lib/site";
 import { IconWhatsApp } from "@/components/icons";
 
@@ -25,10 +26,6 @@ const EMPTY: FormState = {
   consent: false,
 };
 
-/**
- * Não existe endpoint de leads na API ainda: o envio monta a mensagem e
- * entrega o contato ao corretor pelo WhatsApp.
- */
 export function SimulationForm({ properties }: { properties: Property[] }) {
   const [form, setForm] = useState<FormState>(EMPTY);
   const [sent, setSent] = useState(false);
@@ -116,7 +113,7 @@ export function SimulationForm({ properties }: { properties: Property[] }) {
           required
           type="tel"
           value={form.phone}
-          onChange={(event) => update("phone", event.target.value)}
+          onChange={(event) => update("phone", formatPhoneBR(event.target.value))}
           placeholder="(00) 00000-0000"
           className={fieldClass}
         />

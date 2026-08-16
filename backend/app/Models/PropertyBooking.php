@@ -2,10 +2,18 @@
 
 namespace App\Models;
 
+use App\Models\Traits\ScopedToUserConstructions;
 use Illuminate\Database\Eloquent\Relations\BelongsTo;
 
 class PropertyBooking extends BaseModel
 {
+    use ScopedToUserConstructions;
+
+    protected static function booted(): void
+    {
+        static::addConstructionScope('construction_id', viaRelation: 'property');
+    }
+
     public const STATUSES = [
         'pending',
         'confirmed',

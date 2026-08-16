@@ -43,6 +43,18 @@ class PropertiesTable
                     })
                     ->formatStateUsing(fn (?string $state): string => PropertyForm::STATUS_LABELS[$state] ?? $state ?? '-'),
 
+                TextColumn::make('construction_phase')
+                    ->label('Fase da obra')
+                    ->badge()
+                    ->color(fn (?string $state): string => match ($state) {
+                        'completed' => 'success',
+                        'finishing' => 'info',
+                        'structure' => 'warning',
+                        'foundation', 'planning' => 'gray',
+                        default => 'gray',
+                    })
+                    ->formatStateUsing(fn (?string $state): string => PropertyForm::CONSTRUCTION_PHASE_LABELS[$state] ?? $state ?? '-'),
+
                 TextColumn::make('price')
                     ->label('Preço')
                     ->money('BRL')
@@ -100,6 +112,10 @@ class PropertiesTable
                 SelectFilter::make('status')
                     ->label('Status')
                     ->options(PropertyForm::STATUS_LABELS),
+
+                SelectFilter::make('construction_phase')
+                    ->label('Fase da obra')
+                    ->options(PropertyForm::CONSTRUCTION_PHASE_LABELS),
 
                 CreatedAtFilter::make(),
             ])

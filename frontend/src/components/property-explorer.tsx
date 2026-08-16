@@ -130,7 +130,7 @@ export function PropertyExplorer({ properties }: { properties: Property[] }) {
               type="button"
               onClick={() => setFilters(EMPTY)}
               disabled={!hasFilters}
-              className="h-[50px] w-full rounded-xl bg-brand-500 px-6 text-sm font-semibold text-white transition hover:bg-brand-600 disabled:cursor-not-allowed disabled:bg-brand-100 disabled:text-brand-900/35 md:w-auto"
+              className="h-12.5 w-full rounded-xl bg-brand-500 px-6 text-sm font-semibold text-white transition hover:bg-brand-600 disabled:cursor-not-allowed disabled:bg-brand-100 disabled:text-brand-900/35 md:w-auto"
             >
               Limpar filtros
             </button>

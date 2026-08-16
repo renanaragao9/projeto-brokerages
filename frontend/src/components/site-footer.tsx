@@ -1,3 +1,4 @@
+import Image from "next/image";
 import Link from "next/link";
 import { site } from "@/lib/site";
 import {
@@ -17,9 +18,13 @@ export function SiteFooter() {
       <div className="mx-auto grid w-full max-w-7xl gap-12 px-5 py-16 lg:grid-cols-4 lg:px-8">
         <div className="lg:col-span-2">
           <Link href="/canopus" className="mb-5 inline-flex items-center gap-3">
-            <span className="grid h-10 w-10 place-items-center rounded-xl bg-accent-500 text-lg font-bold text-white">
-              C
-            </span>
+            <Image
+              src="/logo/canopus/canopus-logo.png"
+              alt={site.name}
+              width={40}
+              height={40}
+              className="h-10 w-10 rounded-xl object-contain"
+            />
             <span className="leading-tight text-white">
               <span className="block text-lg font-semibold tracking-tight">{site.shortName}</span>
               <span className="block text-[10px] uppercase tracking-[0.28em] text-white/50">

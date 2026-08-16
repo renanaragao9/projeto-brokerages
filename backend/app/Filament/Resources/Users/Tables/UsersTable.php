@@ -54,6 +54,12 @@ class UsersTable
                     ->label('Perfil')
                     ->sortable()
                     ->placeholder('-'),
+                TextColumn::make('constructions.name')
+                    ->label('Empresas')
+                    ->badge()
+                    ->separator(',')
+                    ->placeholder('-')
+                    ->toggleable(isToggledHiddenByDefault: true),
                 TextColumn::make('last_login_at')
                     ->label('Último acesso')
                     ->dateTime('d/m/Y H:i')

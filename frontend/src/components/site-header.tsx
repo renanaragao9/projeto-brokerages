@@ -1,5 +1,6 @@
 "use client";
 
+import Image from "next/image";
 import Link from "next/link";
 import { useEffect, useState } from "react";
 import { site, whatsappLink } from "@/lib/site";
@@ -33,14 +34,19 @@ export function SiteHeader() {
       className={`fixed inset-x-0 top-0 z-50 transition-all duration-300 ${
         solid
           ? "bg-brand-800/95 shadow-lg shadow-brand-900/20 backdrop-blur"
-          : "bg-gradient-to-b from-brand-900/70 to-transparent"
+          : "bg-linear-to-b from-brand-900/70 to-transparent"
       }`}
     >
       <div className="mx-auto flex h-20 w-full max-w-7xl items-center gap-6 px-5 lg:px-8">
         <Link href="/canopus" className="flex items-center gap-3" onClick={() => setOpen(false)}>
-          <span className="grid h-10 w-10 place-items-center rounded-xl bg-accent-500 text-lg font-bold text-white">
-            C
-          </span>
+          <Image
+            src="/logo/canopus/canopus-logo.png"
+            alt={site.name}
+            width={40}
+            height={40}
+            priority
+            className="h-10 w-10 rounded-xl object-contain"
+          />
           <span className="leading-tight text-white">
             <span className="block text-lg font-semibold tracking-tight">{site.shortName}</span>
             <span className="block text-[10px] uppercase tracking-[0.28em] text-white/60">

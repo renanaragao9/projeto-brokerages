@@ -72,6 +72,27 @@ class PermissionSeeder extends Seeder
             ['name' => 'Editar Agendamentos', 'code' => 'property_booking.edit', 'group' => 'Agendamentos'],
             ['name' => 'Atualizar Agendamentos', 'code' => 'property_booking.update', 'group' => 'Agendamentos'],
             ['name' => 'Deletar Agendamentos', 'code' => 'property_booking.delete', 'group' => 'Agendamentos'],
+
+            // Construction Updates
+            ['name' => 'Ver Atualizações da Obra', 'code' => 'construction_update.view', 'group' => 'Atualizações da Obra'],
+            ['name' => 'Criar Atualizações da Obra', 'code' => 'construction_update.create', 'group' => 'Atualizações da Obra'],
+            ['name' => 'Editar Atualizações da Obra', 'code' => 'construction_update.edit', 'group' => 'Atualizações da Obra'],
+            ['name' => 'Atualizar Atualizações da Obra', 'code' => 'construction_update.update', 'group' => 'Atualizações da Obra'],
+            ['name' => 'Deletar Atualizações da Obra', 'code' => 'construction_update.delete', 'group' => 'Atualizações da Obra'],
+
+            // Banks
+            ['name' => 'Ver Bancos', 'code' => 'bank.view', 'group' => 'Bancos'],
+            ['name' => 'Criar Bancos', 'code' => 'bank.create', 'group' => 'Bancos'],
+            ['name' => 'Editar Bancos', 'code' => 'bank.edit', 'group' => 'Bancos'],
+            ['name' => 'Atualizar Bancos', 'code' => 'bank.update', 'group' => 'Bancos'],
+            ['name' => 'Deletar Bancos', 'code' => 'bank.delete', 'group' => 'Bancos'],
+
+            // Notices
+            ['name' => 'Ver Notícias', 'code' => 'notice.view', 'group' => 'Notícias'],
+            ['name' => 'Criar Notícias', 'code' => 'notice.create', 'group' => 'Notícias'],
+            ['name' => 'Editar Notícias', 'code' => 'notice.edit', 'group' => 'Notícias'],
+            ['name' => 'Atualizar Notícias', 'code' => 'notice.update', 'group' => 'Notícias'],
+            ['name' => 'Deletar Notícias', 'code' => 'notice.delete', 'group' => 'Notícias'],
         ];
 
         foreach ($permissions as $permission) {

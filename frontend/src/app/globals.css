@@ -3,7 +3,6 @@
 @theme {
   --font-sans: var(--font-poppins), ui-sans-serif, system-ui, sans-serif;
 
-  /* Azul institucional Canopus */
   --color-brand-50: #eef4fa;
   --color-brand-100: #d7e5f2;
   --color-brand-200: #aec9e3;
@@ -15,7 +14,6 @@
   --color-brand-800: #002041;
   --color-brand-900: #001830;
 
-  /* Laranja de destaque Canopus */
   --color-accent-50: #fdf6ef;
   --color-accent-100: #fae7d3;
   --color-accent-200: #f2caa1;
@@ -75,7 +73,6 @@ body {
   color: #ffffff;
 }
 
-/* Revelação progressiva ao entrar na viewport (ver components/reveal.tsx) */
 [data-reveal] {
   opacity: 0;
 }
@@ -99,4 +96,47 @@ body {
   .animate-marquee {
     animation: none !important;
   }
+}
+
+/* Conteúdo rico das notícias (vem do RichEditor do painel administrativo). */
+.notice-content :where(h1, h2, h3) {
+  margin-top: 1.75em;
+  margin-bottom: 0.6em;
+  font-weight: 600;
+  color: var(--color-brand-800);
+}
+
+.notice-content :where(p) {
+  margin-top: 1em;
+}
+
+.notice-content :where(a) {
+  color: var(--color-accent-600);
+  text-decoration: underline;
+}
+
+.notice-content :where(ul, ol) {
+  margin-top: 1em;
+  padding-left: 1.5em;
+}
+
+.notice-content :where(ul) {
+  list-style: disc;
+}
+
+.notice-content :where(ol) {
+  list-style: decimal;
+}
+
+.notice-content :where(img) {
+  margin-top: 1.5em;
+  border-radius: 1rem;
+}
+
+.notice-content :where(blockquote) {
+  margin-top: 1.5em;
+  border-left: 3px solid var(--color-accent-500);
+  padding-left: 1em;
+  color: var(--color-brand-900);
+  opacity: 0.75;
 }

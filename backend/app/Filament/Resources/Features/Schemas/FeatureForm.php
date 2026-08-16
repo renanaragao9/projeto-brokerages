@@ -29,8 +29,10 @@ class FeatureForm
                             ->label('Slug')
                             ->required()
                             ->unique(ignoreRecord: true)
-                            ->regex('/^[a-z0-9]+(?:-[a-z0-9]+)*$/')
-                            ->helperText('Usado na URL pública do anúncio, ex: swimming-pool'),
+                            ->live(onBlur: true)
+                            ->dehydrateStateUsing(fn (?string $state) => str($state ?? '')->slug())
+                            ->afterStateUpdated(fn ($state, $set) => $set('slug', str($state ?? '')->slug()))
+                            ->helperText('Usado na URL pública do anúncio, ex: swimming-pool. Formatado automaticamente.'),
 
                         TextInput::make('icon')
                             ->label('Ícone')

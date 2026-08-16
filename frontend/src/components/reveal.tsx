@@ -6,7 +6,6 @@ type RevealProps = {
   children: ReactNode;
   as?: ElementType;
   className?: string;
-  /** Atraso em milissegundos para escalonar itens de uma mesma lista. */
   delay?: number;
   id?: string;
 };
