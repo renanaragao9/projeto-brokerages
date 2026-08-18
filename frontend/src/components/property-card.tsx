@@ -10,9 +10,24 @@ import {
   statusLabel,
   typeLabel,
 } from "@/lib/property";
-import { IconArea, IconArrow, IconBed, IconCar, IconPin, IconShower } from "@/components/icons";
+import {
+  IconArea,
+  IconArrow,
+  IconBed,
+  IconCar,
+  IconPin,
+  IconShower,
+} from "@/components/icons";
 
-export function PropertyCard({ property }: { property: Property }) {
+export function PropertyCard({
+  property,
+  basePath = "/canopus",
+  dealType = "sale",
+}: {
+  property: Property;
+  basePath?: string;
+  dealType?: "sale" | "rental";
+}) {
   const cover = coverImage(property);
   const location = shortLocation(property);
   const area = formatArea(property.area);
@@ -22,16 +37,22 @@ export function PropertyCard({ property }: { property: Property }) {
 
   const specs = [
     area ? { Icon: IconArea, label: area } : null,
-    property.bedrooms !== null ? { Icon: IconBed, label: `${property.bedrooms} quartos` } : null,
-    property.suites ? { Icon: IconShower, label: `${property.suites} suítes` } : null,
+    property.bedrooms !== null
+      ? { Icon: IconBed, label: `${property.bedrooms} quartos` }
+      : null,
+    property.suites
+      ? { Icon: IconShower, label: `${property.suites} suítes` }
+      : null,
     property.parking_spaces !== null
       ? { Icon: IconCar, label: `${property.parking_spaces} vagas` }
       : null,
-  ].filter((spec): spec is { Icon: typeof IconArea; label: string } => spec !== null);
+  ].filter(
+    (spec): spec is { Icon: typeof IconArea; label: string } => spec !== null,
+  );
 
   return (
     <Link
-      href={`/canopus/${property.id}`}
+      href={`${basePath}/${property.id}`}
       className="group flex w-full flex-col overflow-hidden rounded-2xl bg-white shadow-[0_2px_20px_-8px_rgba(0,32,65,0.25)] ring-1 ring-brand-900/8 transition duration-300 hover:-translate-y-1 hover:shadow-[0_24px_50px_-20px_rgba(0,32,65,0.45)]"
     >
       <div className="relative aspect-4/3 overflow-hidden bg-brand-100">
@@ -105,9 +126,11 @@ export function PropertyCard({ property }: { property: Property }) {
         <div className="mt-auto flex items-end justify-between gap-3 pt-6">
           <div>
             <p className="text-[11px] uppercase tracking-wider text-brand-900/40">
-              {price ? "A partir de" : "Condições"}
+              {price ? (dealType === "rental" ? "Aluguel a partir de" : "A partir de") : "Condições"}
             </p>
-            <p className="text-base font-semibold text-brand-800">{price ?? "Sob consulta"}</p>
+            <p className="text-base font-semibold text-brand-800">
+              {price ?? "Sob consulta"}
+            </p>
           </div>
 
           <span className="inline-flex items-center gap-1.5 rounded-full bg-brand-50 px-4 py-2 text-sm font-semibold text-brand-600 transition group-hover:bg-accent-500 group-hover:text-white">

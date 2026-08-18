@@ -3,9 +3,40 @@
  * Ajuste aqui (ou via variáveis de ambiente NEXT_PUBLIC_*) — nenhum componente
  * possui dado de contato fixo no código.
  */
-export const site = {
+export type SiteConfig = {
+  name: string;
+  shortName: string;
+  subtitle: string;
+  tagline: string;
+
+  /** Somente dígitos, com DDI + DDD — usado nos links do WhatsApp. */
+  whatsapp: string;
+  phoneLabel: string;
+  email: string;
+  addressLine: string;
+
+  foundedYear: number;
+  creci: string;
+
+  /** "sale" (venda/lançamentos) ou "rental" (aluguel) — ajusta os textos institucionais. */
+  dealType: "sale" | "rental";
+
+  logo: string;
+  rootPath: string;
+
+  social: {
+    instagram: string;
+    facebook: string;
+    youtube: string;
+  };
+
+  nav: { label: string; href: string }[];
+};
+
+export const site: SiteConfig = {
   name: process.env.NEXT_PUBLIC_CONSTRUCTION_NAME ?? "Canopus Construções",
   shortName: "Canopus",
+  subtitle: "Construções",
   tagline: "Value, simplified. Morar bem, sem complicação.",
 
   /** Contato exibido no site: Allison Marques, corretor responsável pela Canopus. */
@@ -18,6 +49,10 @@ export const site = {
   /** TODO: confirmar com o cliente antes de publicar. */
   foundedYear: 1976,
   creci: "CRECI-CE 0000-J",
+  dealType: "sale",
+
+  logo: "/logo/canopus/canopus-logo.png",
+  rootPath: "/canopus",
 
   social: {
     instagram: "https://instagram.com/canopusconstrucoes",
@@ -32,8 +67,8 @@ export const site = {
     { label: "Contato", href: "/canopus#contato" },
     { label: "Notícias", href: "/canopus/noticias" },
   ],
-} as const;
+};
 
-export function whatsappLink(message: string): string {
-  return `https://wa.me/${site.whatsapp}?text=${encodeURIComponent(message)}`;
+export function whatsappLink(message: string, config: SiteConfig = site): string {
+  return `https://wa.me/${config.whatsapp}?text=${encodeURIComponent(message)}`;
 }

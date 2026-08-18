@@ -1,6 +1,6 @@
 import Image from "next/image";
 import Link from "next/link";
-import { site } from "@/lib/site";
+import { site, type SiteConfig } from "@/lib/site";
 import {
   IconFacebook,
   IconInstagram,
@@ -10,25 +10,25 @@ import {
   IconYoutube,
 } from "@/components/icons";
 
-export function SiteFooter() {
+export function SiteFooter({ config = site }: { config?: SiteConfig }) {
   const year = new Date().getFullYear();
 
   return (
     <footer className="bg-brand-900 text-white/70">
       <div className="mx-auto grid w-full max-w-7xl gap-12 px-5 py-16 lg:grid-cols-4 lg:px-8">
         <div className="lg:col-span-2">
-          <Link href="/canopus" className="mb-5 inline-flex items-center gap-3">
+          <Link href={config.rootPath} className="mb-5 inline-flex items-center gap-3">
             <Image
-              src="/logo/canopus/canopus-logo.png"
-              alt={site.name}
+              src={config.logo}
+              alt={config.name}
               width={40}
               height={40}
-              className="h-10 w-10 rounded-xl object-contain"
+              className="site-logo h-10 w-10 rounded-xl object-contain"
             />
             <span className="leading-tight text-white">
-              <span className="block text-lg font-semibold tracking-tight">{site.shortName}</span>
+              <span className="block text-lg font-semibold tracking-tight">{config.shortName}</span>
               <span className="block text-[10px] uppercase tracking-[0.28em] text-white/50">
-                Construções
+                {config.subtitle}
               </span>
             </span>
           </Link>
@@ -40,9 +40,9 @@ export function SiteFooter() {
 
           <div className="mt-6 flex gap-3">
             {[
-              { href: site.social.instagram, label: "Instagram", Icon: IconInstagram },
-              { href: site.social.facebook, label: "Facebook", Icon: IconFacebook },
-              { href: site.social.youtube, label: "YouTube", Icon: IconYoutube },
+              { href: config.social.instagram, label: "Instagram", Icon: IconInstagram },
+              { href: config.social.facebook, label: "Facebook", Icon: IconFacebook },
+              { href: config.social.youtube, label: "YouTube", Icon: IconYoutube },
             ].map(({ href, label, Icon }) => (
               <a
                 key={label}
@@ -63,7 +63,7 @@ export function SiteFooter() {
             Navegação
           </h3>
           <ul className="space-y-3 text-sm">
-            {site.nav.map((item) => (
+            {config.nav.map((item) => (
               <li key={item.href}>
                 <a href={item.href} className="transition hover:text-accent-300">
                   {item.label}
@@ -80,19 +80,19 @@ export function SiteFooter() {
           <ul className="space-y-4 text-sm">
             <li className="flex gap-3">
               <IconPhone className="mt-0.5 h-4 w-4 shrink-0 text-accent-400" />
-              <a href={`tel:+${site.whatsapp}`} className="transition hover:text-accent-300">
-                {site.phoneLabel}
+              <a href={`tel:+${config.whatsapp}`} className="transition hover:text-accent-300">
+                {config.phoneLabel}
               </a>
             </li>
             <li className="flex gap-3">
               <IconMail className="mt-0.5 h-4 w-4 shrink-0 text-accent-400" />
-              <a href={`mailto:${site.email}`} className="transition hover:text-accent-300">
-                {site.email}
+              <a href={`mailto:${config.email}`} className="transition hover:text-accent-300">
+                {config.email}
               </a>
             </li>
             <li className="flex gap-3">
               <IconPin className="mt-0.5 h-4 w-4 shrink-0 text-accent-400" />
-              <span>{site.addressLine}</span>
+              <span>{config.addressLine}</span>
             </li>
           </ul>
         </div>
@@ -101,7 +101,7 @@ export function SiteFooter() {
       <div className="border-t border-white/10">
         <div className="mx-auto flex w-full max-w-7xl flex-col gap-2 px-5 py-6 text-xs sm:flex-row sm:items-center sm:justify-between lg:px-8">
           <p>
-            © {year} {site.name}. Todos os direitos reservados. {site.creci}
+            © {year} {config.name}. Todos os direitos reservados. {config.creci}
           </p>
           <p>
             Imagens meramente ilustrativas. Valores e condições sujeitos a alteração sem aviso

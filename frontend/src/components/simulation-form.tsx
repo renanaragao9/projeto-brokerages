@@ -3,7 +3,7 @@
 import { useState, type FormEvent } from "react";
 import type { Property } from "@/lib/api";
 import { formatPhoneBR } from "@/lib/phone";
-import { site, whatsappLink } from "@/lib/site";
+import { site, whatsappLink, type SiteConfig } from "@/lib/site";
 import { IconWhatsApp } from "@/components/icons";
 
 const AGE_RANGES = ["18 a 24 anos", "25 a 32 anos", "33 a 45 anos", "A partir de 45 anos"];
@@ -26,9 +26,17 @@ const EMPTY: FormState = {
   consent: false,
 };
 
-export function SimulationForm({ properties }: { properties: Property[] }) {
+export function SimulationForm({
+  properties,
+  config = site,
+}: {
+  properties: Property[];
+  config?: SiteConfig;
+}) {
   const [form, setForm] = useState<FormState>(EMPTY);
   const [sent, setSent] = useState(false);
+
+  const isRental = config.dealType === "rental";
 
   const fieldClass =
     "w-full rounded-xl border border-white/15 bg-white/5 px-4 py-3.5 text-sm text-white outline-none transition placeholder:text-white/40 focus:border-accent-400 focus:bg-white/10 focus:ring-2 focus:ring-accent-400/25";
@@ -41,18 +49,20 @@ export function SimulationForm({ properties }: { properties: Property[] }) {
     event.preventDefault();
 
     const message = [
-      `Olá! Quero uma simulação de financiamento na ${site.name}.`,
+      isRental
+        ? `Olá! Quero saber mais sobre alugar um imóvel na ${config.name}.`
+        : `Olá! Quero uma simulação de financiamento na ${config.name}.`,
       "",
       `Nome: ${form.name}`,
       `E-mail: ${form.email}`,
       `Telefone: ${form.phone}`,
-      form.property ? `Empreendimento: ${form.property}` : null,
-      form.ageRange ? `Faixa etária: ${form.ageRange}` : null,
+      form.property ? `Imóvel: ${form.property}` : null,
+      !isRental && form.ageRange ? `Faixa etária: ${form.ageRange}` : null,
     ]
       .filter((line) => line !== null)
       .join("\n");
 
-    window.open(whatsappLink(message), "_blank", "noopener,noreferrer");
+    window.open(whatsappLink(message, config), "_blank", "noopener,noreferrer");
     setSent(true);
   }
 
@@ -119,25 +129,27 @@ export function SimulationForm({ properties }: { properties: Property[] }) {
         />
       </label>
 
-      <label className="block">
-        <span className="mb-2 block text-[11px] font-semibold uppercase tracking-[0.16em] text-white/50">
-          Faixa etária
-        </span>
-        <select
-          value={form.ageRange}
-          onChange={(event) => update("ageRange", event.target.value)}
-          className={`${fieldClass} appearance-none`}
-        >
-          <option value="" className="text-brand-900">
-            Selecione...
-          </option>
-          {AGE_RANGES.map((range) => (
-            <option key={range} value={range} className="text-brand-900">
-              {range}
+      {!isRental && (
+        <label className="block">
+          <span className="mb-2 block text-[11px] font-semibold uppercase tracking-[0.16em] text-white/50">
+            Faixa etária
+          </span>
+          <select
+            value={form.ageRange}
+            onChange={(event) => update("ageRange", event.target.value)}
+            className={`${fieldClass} appearance-none`}
+          >
+            <option value="" className="text-brand-900">
+              Selecione...
             </option>
-          ))}
-        </select>
-      </label>
+            {AGE_RANGES.map((range) => (
+              <option key={range} value={range} className="text-brand-900">
+                {range}
+              </option>
+            ))}
+          </select>
+        </label>
+      )}
 
       <label className="flex items-start gap-3 text-xs leading-relaxed text-white/60 sm:col-span-2">
         <input
@@ -147,7 +159,7 @@ export function SimulationForm({ properties }: { properties: Property[] }) {
           onChange={(event) => update("consent", event.target.checked)}
           className="mt-0.5 h-4 w-4 shrink-0 accent-accent-500"
         />
-        Autorizo o contato de um corretor e concordo com a política de privacidade da {site.name}.
+        Autorizo o contato de um corretor e concordo com a política de privacidade da {config.name}.
       </label>
 
       <div className="sm:col-span-2">
@@ -162,7 +174,7 @@ export function SimulationForm({ properties }: { properties: Property[] }) {
         {sent && (
           <p className="mt-4 text-sm text-accent-200">
             Abrimos o WhatsApp com seus dados. Se a janela não abriu, chame direto em{" "}
-            {site.phoneLabel}.
+            {config.phoneLabel}.
           </p>
         )}
       </div>

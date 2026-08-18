@@ -23,6 +23,15 @@
   --color-accent-600: #b45e1b;
   --color-accent-700: #8f4712;
 
+  /* Tokens extras da paleta Mateus (ouro e terracota) — globais, sem efeito no Canopus. */
+  --color-gold-400: #e0c465;
+  --color-gold-500: #d4af37;
+  --color-gold-600: #b3932c;
+
+  --color-terracotta-400: #cf6a3a;
+  --color-terracotta-500: #b84515;
+  --color-terracotta-600: #8f3510;
+
   --animate-ken-burns: ken-burns 22s ease-out forwards;
   --animate-fade-up: fade-up 0.7s cubic-bezier(0.22, 1, 0.36, 1) forwards;
   --animate-marquee: marquee 32s linear infinite;
@@ -55,6 +64,39 @@
   to {
     transform: translate3d(-50%, 0, 0);
   }
+}
+
+/*
+ * Paleta "Mateus Corretora de Imóveis": vermelho corporativo + preto/grafite/branco.
+ * Escopada em [data-site="mateus"] (definido em app/mateus/layout.tsx) — sobrescreve
+ * as custom properties brand e accent só dentro da subárvore, então Canopus não muda.
+ */
+[data-site="mateus"] {
+  --color-brand-50: #f2f1ee;
+  --color-brand-100: #e0e0e0;
+  --color-brand-200: #c7c0b4;
+  --color-brand-300: #8b7d6b;
+  --color-brand-400: #6b6b6b;
+  --color-brand-500: #4a4a4a;
+  --color-brand-600: #3d3d3d;
+  --color-brand-700: #2a2a2a;
+  --color-brand-800: #1c1c1c;
+  --color-brand-900: #000000;
+
+  --color-accent-50: #fbeaea;
+  --color-accent-100: #f4cfcf;
+  --color-accent-200: #e9a3a3;
+  --color-accent-300: #dd7777;
+  --color-accent-400: #d15252;
+  --color-accent-500: #c03030;
+  --color-accent-600: #a32828;
+  --color-accent-700: #7a1e1e;
+}
+
+/* Logo do Mateus recebe fundo branco (header/footer são escuros). */
+[data-site="mateus"] .site-logo {
+  background: #ffffff;
+  padding: 0.3rem;
 }
 
 html {

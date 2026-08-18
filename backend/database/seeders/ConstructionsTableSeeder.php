@@ -14,12 +14,21 @@ class ConstructionsTableSeeder extends Seeder
                 'name' => 'Canopus Construções',
                 'website_url' => 'https://canopusconstrucoes.com.br',
             ],
+            [
+                'name' => 'Mateus Imóveis',
+                'website_url' => null,
+                'description' => 'Imobiliária',
+            ],
         ];
 
         foreach ($constructions as $construction) {
             Construction::updateOrCreate(
                 ['name' => $construction['name']],
-                ['website_url' => $construction['website_url'], 'is_active' => true],
+                [
+                    'website_url' => $construction['website_url'] ?? null,
+                    'description' => $construction['description'] ?? null,
+                    'is_active' => true,
+                ],
             );
         }
     }

@@ -19,6 +19,38 @@ class PropertiesTableSeeder extends Seeder
 
         $properties = [
             [
+                'name' => 'Casa Duplex na Aldeota',
+                'type' => 'house',
+                'status' => 'available',
+                'construction_phase' => 'completed',
+                'description' => 'Casa duplex ampla e reformada na Aldeota, a poucos minutos da praia e dos principais pontos de comércio e lazer da cidade. Living integrado, cozinha planejada e quintal privativo com churrasqueira — tudo isso sem taxa de condomínio e com total privacidade. Ideal para quem busca morar bem, com conforto e localização estratégica.',
+                'address' => 'Rua Barão de Aracati',
+                'address_number' => '1230',
+                'neighborhood' => 'Aldeota',
+                'city' => 'Fortaleza',
+                'state' => 'CE',
+                'price' => 3500.00,
+                'condominium_fee' => null,
+                'iptu' => 150.00,
+                'total_area' => 220.00,
+                'area' => 180.00,
+                'bedrooms' => 3,
+                'suites' => 1,
+                'bathrooms' => 3,
+                'parking_spaces' => 2,
+                'construction' => 'Mateus Imóveis',
+                'broker' => 'Mateus Imóveis',
+                'program' => null,
+                'is_featured' => true,
+                'features' => ['Garden', 'Barbecue Area', 'Pet Place'],
+                'images' => [
+                    'https://images.unsplash.com/photo-1600596542815-ffad4c1539a9?w=1600&q=80',
+                    'https://images.unsplash.com/photo-1600585154340-be6161a56a0c?w=1600&q=80',
+                    'https://images.unsplash.com/photo-1600607687939-ce8a6c25118c?w=1600&q=80',
+                    'https://images.unsplash.com/photo-1600566753086-00f18fb6b3ea?w=1600&q=80',
+                ],
+            ],
+            [
                 'name' => 'Gran Village do Sol II',
                 'type' => 'condominium',
                 'status' => 'available',
@@ -218,9 +250,12 @@ class PropertiesTableSeeder extends Seeder
 
         foreach ($properties as $property) {
             $constructionId = Construction::where('name', $property['construction'])->value('id');
-            $programId = $property['program']
+            $programId = $property['program'] ?? null
                 ? Program::where('name', $property['program'])->value('id')
                 : null;
+            $brokerId = isset($property['broker'])
+                ? Broker::where('name', $property['broker'])->value('id')
+                : $defaultBrokerId;
 
             $model = Property::updateOrCreate(
                 ['slug' => Str::slug($property['name'])],
@@ -235,6 +270,9 @@ class PropertiesTableSeeder extends Seeder
                     'neighborhood' => $property['neighborhood'],
                     'city' => $property['city'],
                     'state' => $property['state'],
+                    'price' => $property['price'] ?? null,
+                    'condominium_fee' => $property['condominium_fee'] ?? null,
+                    'iptu' => $property['iptu'] ?? null,
                     'total_area' => $property['total_area'],
                     'area' => $property['area'],
                     'bedrooms' => $property['bedrooms'],
@@ -243,7 +281,8 @@ class PropertiesTableSeeder extends Seeder
                     'parking_spaces' => $property['parking_spaces'],
                     'construction_id' => $constructionId,
                     'program_id' => $programId,
-                    'broker_id' => $defaultBrokerId,
+                    'broker_id' => $brokerId,
+                    'is_featured' => $property['is_featured'] ?? false,
                     'is_active' => true,
                 ],
             );

@@ -20,7 +20,15 @@ function uniqueSorted(values: (string | null)[]): string[] {
   );
 }
 
-export function PropertyExplorer({ properties }: { properties: Property[] }) {
+export function PropertyExplorer({
+  properties,
+  basePath = "/canopus",
+  dealType = "sale",
+}: {
+  properties: Property[];
+  basePath?: string;
+  dealType?: "sale" | "rental";
+}) {
   const [filters, setFilters] = useState<Filters>(EMPTY);
 
   const cities = useMemo(() => uniqueSorted(properties.map((item) => item.city)), [properties]);
@@ -140,13 +148,21 @@ export function PropertyExplorer({ properties }: { properties: Property[] }) {
 
       <p className="mt-6 text-sm text-brand-900/55">
         <strong className="font-semibold text-brand-800">{filtered.length}</strong>{" "}
-        {filtered.length === 1 ? "empreendimento encontrado" : "empreendimentos encontrados"}
+        {dealType === "rental"
+          ? filtered.length === 1
+            ? "imóvel encontrado"
+            : "imóveis encontrados"
+          : filtered.length === 1
+            ? "empreendimento encontrado"
+            : "empreendimentos encontrados"}
       </p>
 
       {filtered.length === 0 ? (
         <div className="mt-6 rounded-2xl border border-dashed border-brand-200 bg-white/60 px-6 py-16 text-center">
           <p className="text-base font-semibold text-brand-800">
-            Nenhum empreendimento com esses filtros.
+            {dealType === "rental"
+              ? "Nenhum imóvel com esses filtros."
+              : "Nenhum empreendimento com esses filtros."}
           </p>
           <p className="mt-2 text-sm text-brand-900/55">
             Ajuste a busca ou fale com um corretor para conhecer as próximas oportunidades.
@@ -156,7 +172,7 @@ export function PropertyExplorer({ properties }: { properties: Property[] }) {
         <div className="mt-6 grid gap-7 sm:grid-cols-2 lg:grid-cols-3">
           {filtered.map((property, index) => (
             <Reveal key={property.id} delay={Math.min(index, 5) * 70} className="flex">
-              <PropertyCard property={property} />
+              <PropertyCard property={property} basePath={basePath} dealType={dealType} />
             </Reveal>
           ))}
         </div>

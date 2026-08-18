@@ -11,6 +11,7 @@ class BrokersTableSeeder extends Seeder
     public function run(): void
     {
         $canopusId = Construction::where('name', 'Canopus Construções')->value('id');
+        $mateusId = Construction::where('name', 'Mateus Imóveis')->value('id');
 
         $brokers = [
             [
@@ -25,6 +26,17 @@ class BrokersTableSeeder extends Seeder
                 'state' => 'CE',
                 'zip_code' => '60000-000',
                 'construction_id' => $canopusId,
+            ],
+            [
+                'name' => 'Mateus Imóveis',
+                'phone' => '8532724806',
+                'address' => 'Rua Monsenhor Salazar',
+                'address_number' => '883',
+                'neighborhood' => 'São João do Tauape',
+                'city' => 'Fortaleza',
+                'state' => 'CE',
+                'zip_code' => '60130-370',
+                'construction_id' => $mateusId,
             ],
         ];
 
